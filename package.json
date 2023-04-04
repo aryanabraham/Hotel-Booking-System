@@ -1,0 +1,22 @@
+{
+  "name": "hotel-booking-system",
+  "version": "1.0.0",
+  "description": "Hotel Booking System",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Harshul02/Hotel-Booking-System.git"
+  },
+  "author": "Harshul Jain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Harshul02/Hotel-Booking-System/issues"
+  },
+  "homepage": "https://github.com/Harshul02/Hotel-Booking-System#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
