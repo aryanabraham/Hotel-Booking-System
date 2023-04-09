@@ -29,7 +29,7 @@ const bookingSchema = mongoose.Schema({
         type : Number,
         required : true
     },
-    transactionid : {
+    transactionId : {
         type: String, 
         required : true
     },
@@ -45,4 +45,4 @@ const bookingSchema = mongoose.Schema({
 
 const bookingmodel = mongoose.model('bookings', bookingSchema);
 
-module.exports = bookingmodel;
+module.exports = bookingmodel; 
