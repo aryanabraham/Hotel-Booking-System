@@ -6,7 +6,7 @@ const moment = require('moment');
 const stripe = require('stripe')('Secret Key');
 const { v4: uuidv4 } = require('uuid');
 
-router.post("/booking", async(req,res)=>{
+router.post("/bookroom", async(req,res)=>{
 
     const [room, userid, fromdate,todate,totalamount, totaldays, token] = req.body;
 
@@ -42,7 +42,7 @@ router.post("/booking", async(req,res)=>{
                 const roomtemp = await Room.findOne({_id : room._id});
 
                 roomtemp.currentbookings.push({
-                    roomid : booking._id,
+                    bookingid : booking._id,
                     fromdate : moment(fromdate).format('DD-MM-YYYY'),
                     todate : moment(todate).format('DD-MM-YYYY'),
                     userid : userid,

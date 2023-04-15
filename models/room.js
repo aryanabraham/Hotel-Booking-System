@@ -17,7 +17,7 @@ const roomSchema = mongoose.Schema({
         type : Number,
         required : true
     },
-    imageurl : [],
+    imageurls : [],
     currentbookings : [],
     type : {
         type : String,
@@ -27,7 +27,7 @@ const roomSchema = mongoose.Schema({
         type : String,
         required : true
     }
-}, {timestamp : true}
+}, {timestamps : true}
 );
 
 const roomModel = mongoose.model('rooms', roomSchema);
