@@ -23,7 +23,7 @@ function Room({ room, fromdate, todate }) {
         <div style={{ float: "right" }}>
           {fromdate && todate && (
             <Link to={`/book/${room._id}/${fromdate}/${todate}`}>
-              <button className="btn btn-primary m-2">Book Now</button>
+              <button className="btn btn-primary m-2" onClick={handleShow}>Book Now</button>
             </Link>
           )}
 
@@ -42,7 +42,7 @@ function Room({ room, fromdate, todate }) {
             {room.imageurls.map((url) => {
               return (
                 <Carousel.Item>
-                  <img className="d-block w-100 bigmg" src={url} />
+                  <img className="d-block w-100 bigimg" src={url} />
                 </Carousel.Item>
               );
             })}

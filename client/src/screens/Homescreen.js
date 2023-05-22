@@ -19,11 +19,26 @@ function Homescreen() {
   const [searchkey, setsearchkey] = useState("");
   const [type, settype] = useState("all");
 
-  useEffect(async () => {
+  // useEffect(async () => {
+  //   try {
+  //     setloading(true);
+  //     const data = (await axios.get("/api/rooms/getallrooms")).data;
+  //     console.log(data);
+  //     setrooms(data);
+  //     setduplicaterooms(data);
+  //     setloading(false);
+  //   } catch (error) {
+  //     seterror(true);
+  //     console.log(error);
+  //     setloading(false);
+  //   }
+  // }, []);
+
+  const fetchFun = async () => {
     try {
       setloading(true);
       const data = (await axios.get("/api/rooms/getallrooms")).data;
-
+      console.log(data);
       setrooms(data);
       setduplicaterooms(data);
       setloading(false);
@@ -32,7 +47,12 @@ function Homescreen() {
       console.log(error);
       setloading(false);
     }
-  }, []);
+  }
+
+  useEffect(() => {
+    fetchFun();
+  },[]);
+  
 
   function filterByDate(dates) {
     setfromdate(moment(dates[0].format("DD-MM-YYYY")));
@@ -133,10 +153,11 @@ function Homescreen() {
           <Loader />
         ) : (
           rooms.map((room) => {
-            return;
+            return(
             <div className="col-md-9 mt-2">
               <Room room={room} fromdate={fromdate} todate={todate} />
-            </div>;
+            </div>
+            )
           })
         )}
       </div>
