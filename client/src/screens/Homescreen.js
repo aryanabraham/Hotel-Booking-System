@@ -38,7 +38,7 @@ function Homescreen() {
     try {
       setloading(true);
       const data = (await axios.get("/api/rooms/getallrooms")).data;
-      console.log(data);
+      // console.log(data);
       setrooms(data);
       setduplicaterooms(data);
       setloading(false);

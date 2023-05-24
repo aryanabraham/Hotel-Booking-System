@@ -19,10 +19,12 @@ router.post('/register', async(req,res)=>{
 
 
 router.post('/login', async(req,res)=>{
-    const [email, password] = req.body;
-    
+    const {email, password} = req.body;
+    // console.log(req.body);
     try{
+        // console.log(User);
         const user =await User.findOne({email : email, password : password});
+        // console.log(user);
         if(user){
 
             const temp = {
@@ -31,6 +33,7 @@ router.post('/login', async(req,res)=>{
                 isAdmin : user.isAdmin,
                 _id : user._id
             }
+            // console.log(temp);
             res.send(temp);
         }else{
             return res.status(400).json('Login Failed');

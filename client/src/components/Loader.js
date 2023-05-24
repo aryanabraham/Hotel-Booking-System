@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import HashLoader from "react-spinners/HashLoader";
 
+// const override: CSSProperties = {
+//   display: "block",
+//   margin: "0 auto",
+//   borderColor: "red",
+// };
+
 function Loader() {
   let [loading, setLoading] = useState(true);
   return (

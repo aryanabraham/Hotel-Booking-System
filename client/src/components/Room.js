@@ -21,11 +21,11 @@ function Room({ room, fromdate, todate }) {
         </b>
 
         <div style={{ float: "right" }}>
-          {fromdate && todate && (
-            <Link to={`/book/${room._id}/${fromdate}/${todate}`}>
+            <Link to={`/book/${room._id}`}>
               <button className="btn btn-primary m-2" onClick={handleShow}>Book Now</button>
             </Link>
-          )}
+          {/* {fromdate && todate && (
+          )} */}
 
           <button className="btn btn-primary" onClick={handleShow}>
             View Details

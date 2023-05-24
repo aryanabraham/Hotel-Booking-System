@@ -5,6 +5,8 @@ import Error from "../components/Error";
 import moment from "moment";
 import StripeCheckout from "react-stripe-checkout";
 import Swal from "sweetalert2";
+
+
 function Bookingscreen({ match }) {
   const [loading, setloading] = useState(true);
   const [error, seterror] = useState();
