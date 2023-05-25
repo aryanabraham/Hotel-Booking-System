@@ -14,7 +14,7 @@ function Navbar() {
         <a className="navbar-brand" href="#">
           HakaRooms
         </a>
-        <button
+        {/* <button
           className="navbar-toggler"
           type="button"
           data-toggle="collapse"
@@ -23,15 +23,18 @@ function Navbar() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon">
+          <span className="navbar-toggler-icon" style={{color: "white"}}>
             <i className="fa-solid fa-bars" style={{ color: "white" }}></i>
           </span>
-        </button>
+        </button> */}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon" style={{backgroundColor: "white"}}></span>
+    </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             {user ? (
               <>
-                <div className="dropdown">
+                {/* <div className="dropdown">
                   <button
                     className="btn btn-secondary dropdown-toggle"
                     type="button"
@@ -54,6 +57,30 @@ function Navbar() {
                       Logout
                     </a>
                   </div>
+                </div> */}
+                <div class="dropdown">
+                  <button
+                    class="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i className="fa fa-user"></i>
+                    {user.name}
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li>
+                    <a className="dropdown-item" href="/profile">
+                      Profile
+                    </a>
+                    </li>
+                    <li>
+                    <a className="dropdown-item" href="#" onClick={logout}>
+                      Logout
+                    </a>
+                    </li>
+                    
+                  </ul>
                 </div>
               </>
             ) : (

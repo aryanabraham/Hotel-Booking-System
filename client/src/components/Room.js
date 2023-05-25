@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { useState } from "react";
 import { Modal, Button, Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -6,7 +7,8 @@ function Room({ room, fromdate, todate }) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  // fromdate = moment(fromdate).format("DD-MM-YYYY");
+  console.log(fromdate);
   return (
     <div className="row bs">
       <div className="col-md-4">
@@ -21,7 +23,8 @@ function Room({ room, fromdate, todate }) {
         </b>
 
         <div style={{ float: "right" }}>
-            <Link to={`/book/${room._id}`}>
+        {/* {console.log(fromdate._i)} */}
+            <Link to={`/book/${room._id}/${fromdate}/${todate}`}>
               <button className="btn btn-primary m-2" onClick={handleShow}>Book Now</button>
             </Link>
           {/* {fromdate && todate && (
