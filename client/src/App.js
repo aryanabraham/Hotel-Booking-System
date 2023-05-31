@@ -24,7 +24,7 @@ function App() {
           <Route path="/login" exact Component={Loginscreen} />
           <Route path="/profile" exact Component={Profilescreen} />
           <Route path="/admin" exact Component={Adminscreen} />
-          <Route path="/landingscreen" exact Component={Landingscreen} />
+          <Route path="/" exact Component={Landingscreen} />
         </Routes>
       </BrowserRouter>
     </div>

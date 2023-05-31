@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 function Landingscreen() {
   return (
+    <>
     <div className="row landing justify-content-center">
       <div
         className="col-md-9 my-auto text-center"
@@ -11,10 +12,11 @@ function Landingscreen() {
         <h2 style={{ color: "white", fontSize: "130px" }}>HakaRooms</h2>
         <h1 style={{ color: "white" }}>"There is only one boss. The guest."</h1>
         <Link to="/home">
-          <button className="btn landing-btn">Get Started</button>
+          <button className="btn landing-btn border-white">Get Started</button>
         </Link>
       </div>
     </div>
+    </>
   );
 }
 

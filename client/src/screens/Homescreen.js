@@ -41,6 +41,7 @@ function Homescreen() {
       // console.log(data);
       setrooms(data);
       setduplicaterooms(data);
+      // console.log(duplicaterooms);
       setloading(false);
     } catch (error) {
       seterror(true);
@@ -107,16 +108,14 @@ function Homescreen() {
     const temprooms = duplicaterooms.filter((room) =>
       room.name.toLowerCase().includes(searchkey.toLowerCase)
     );
-
     setrooms(temprooms);
   }
 
   function filterByType(e) {
     settype(e);
-
     if (e !== "all") {
       const temprooms = duplicaterooms.filter(
-        (room) => room.type.toLowerCase() == e.toLowerCase()
+        (room) => room.type.toLowerCase() === e.toLowerCase()
       );
       setrooms(temprooms);
     } else {
