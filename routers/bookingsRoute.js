@@ -3,7 +3,7 @@ const router = express.Router();
 const Booking = require("../models/booking");
 const Room = require("../models/room");
 const moment = require('moment');
-const stripe = require('stripe')('Secret Key');
+const stripe = require('stripe')('sk_test_51M5ZaASDJfvzyPiCpo8bHP3YCSuRQzwzY0G8s2RGA24F6ZCEQpvAHGaIp5Dz2MX1heWed6hn9euQW0STlSyc9DRI00WR8SbbVa');
 const { v4: uuidv4 } = require('uuid');
 
 router.post("/bookroom", async(req,res)=>{
