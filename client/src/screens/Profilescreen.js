@@ -40,7 +40,8 @@ export function MyBookings() {
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState();
 
-  useEffect(async () => {
+  useEffect(() => {
+    async function fetchData(){
     try {
       setloading(true);
       const data = await (
@@ -54,7 +55,9 @@ export function MyBookings() {
       setloading(false);
       seterror(error);
     }
-  }, []);
+  }
+  fetchData();
+}, []);
 
   return (
     <div>

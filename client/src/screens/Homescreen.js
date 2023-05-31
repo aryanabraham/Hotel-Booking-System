@@ -55,8 +55,17 @@ function Homescreen() {
   
 
   function filterByDate(dates) {
-    setfromdate(moment(dates[0].format("DD-MM-YYYY")));
-    settodate(moment(dates[1].format("DD-MM-YYYY")));
+    // setfromdate(moment(dates[0].format("DD-MM-YYYY")));
+    // settodate(moment(dates[1].format("DD-MM-YYYY")));
+    // console.log(fromdate);
+    // console.log(todate);
+
+    const from = moment(dates[0].$d).format("DD-MM-YYYY");
+    const to = moment(dates[1].$d).format("DD-MM-YYYY");
+    setfromdate(from);
+    settodate(to);
+    // console.log(from);
+    // console.log(to);
 
     var temprooms = [];
     var availability = false;
@@ -155,6 +164,8 @@ function Homescreen() {
           rooms.map((room) => {
             return(
             <div className="col-md-9 mt-2">
+            {/* {console.log(fromdate)}
+            {console.log(todate)} */}
               <Room room={room} fromdate={fromdate} todate={todate} />
             </div>
             )

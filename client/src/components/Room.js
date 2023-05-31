@@ -8,7 +8,7 @@ function Room({ room, fromdate, todate }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   // fromdate = moment(fromdate).format("DD-MM-YYYY");
-  console.log(fromdate);
+  // console.log(fromdate);
   return (
     <div className="row bs">
       <div className="col-md-4">

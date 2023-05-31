@@ -5,36 +5,56 @@ import Error from "../components/Error";
 import moment from "moment";
 import StripeCheckout from "react-stripe-checkout";
 import Swal from "sweetalert2";
+import { useParams } from 'react-router-dom';
 
 
 function Bookingscreen({ match }) {
   const [loading, setloading] = useState(true);
   const [error, seterror] = useState();
   const [room, setroom] = useState();
-  console.log(match);
-  const roomid = match.params.roomid;
-  const fromdate = moment(match.params.fromdate, "DD-MM-YYYY");
-  const todate = moment(match.params.todate, "DD-MM-YYYY");
+  // let { roomid,fromdate,todate } = useParams();
 
-  const totaldays = moment.duration(todate.diff(fromdate)).asDays() + 1;
+  // console.log(fromdate);
+  // const roomid = match.params.roomid;
+  // const fromdate = moment(match.params.fromdate, "DD-MM-YYYY");
+  // const todate = moment(match.params.todate, "DD-MM-YYYY");
+  // const day = todate.diff(fromdate);
+  // console.log(day);
+  // const totaldays = moment.duration(day, 'totaldays').asDays() + 1;
+  let { roomid, fromdate, todate } = useParams();
+  console.log(fromdate);
+console.log(todate);
+  fromdate = moment(fromdate, 'DD-MM-YYYY');
+  todate = moment(todate, 'DD-MM-YYYY');
+const totaldays = moment.duration(todate.diff(fromdate)).asDays()+1;
+fromdate = fromdate.format('DD-MM-YYYY');
+todate = todate.format('DD-MM-YYYY');
+console.log(fromdate);
+console.log(todate);
+console.log(totaldays);
   const [totalamount, settotalamount] = useState();
 
-  useEffect(async () => {
+  useEffect(() => {
+    async function fetchData() {
     try {
       setloading(true);
-      const data = (
+      const response = (
         await axios.post("/api/rooms/getroombyid", {
-          roomid: match.params.roomid,
+          roomid: roomid,
         })
-      ).data;
+      );
+      const data = response.data;
       settotalamount(data.rentperday * totaldays);
+      console.log(data);
       setroom(data);
       setloading(false);
     } catch (error) {
       setloading(false);
       seterror(true);
     }
-  }, []);
+  }
+  fetchData();
+}, []);
 
   async function onToken(token) {
     const bookingDetails = {
@@ -72,6 +92,7 @@ function Bookingscreen({ match }) {
         <div>
           <div className="row justify-content-center mt-5 bs">
             <div className="col-md-6">
+            {console.log(room)}
               <h1>{room.name}</h1>
               <img src={room.imageurls[0]} className="bigimg" />
             </div>
@@ -83,8 +104,8 @@ function Bookingscreen({ match }) {
                   <p>
                     Name: {JSON.parse(localStorage.getItem("currentUser")).name}
                   </p>
-                  <p>From: {match.params.fromdate}</p>
-                  <p>To: {match.params.todate}</p>
+                  <p>From: {fromdate}</p>
+                  <p>To: {todate}</p>
                   <p>Max Count: {room.maxcount}</p>
                 </b>
               </div>
@@ -101,7 +122,7 @@ function Bookingscreen({ match }) {
               <div style={{ float: "right" }}>
                 <StripeCheckout
                   amount={totalamount * 100}
-                  token={this.onToken}
+                  token={onToken}
                   currency="INR"
                   stripeKey="pk_test_51M5ZaASDJfvzyPiCaR4yahFAtA29NSO15MMwJfeLXWSZPjE5EON8z7AagtmDI9DjlVTOynCss55LrJkwmwaZeBeu003b5Vj2lE"
                 >

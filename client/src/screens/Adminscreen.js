@@ -43,7 +43,8 @@ export function Bookings() {
   const [loading, setloading] = useState(true);
   const [error, seterror] = useState();
 
-  useEffect(async () => {
+  useEffect(() => {
+    async function fetchData(){
     try {
       const data = await (
         await axios.post("/api/bookings/getallbookings")
@@ -55,7 +56,9 @@ export function Bookings() {
       setloading(false);
       seterror(error);
     }
-  }, []);
+  }
+  fetchData();
+}, []);
 
   return (
     <div className="row">
@@ -101,7 +104,8 @@ export function Rooms() {
   const [loading, setloading] = useState(true);
   const [error, seterror] = useState();
 
-  useEffect(async () => {
+  useEffect(() => {
+    async function fetchData(){
     try {
       const data = await (await axios.post("/api/rooms/getallrooms")).data;
       setrooms(data);
@@ -111,7 +115,9 @@ export function Rooms() {
       setloading(false);
       seterror(error);
     }
-  }, []);
+  }
+  fetchData();
+}, []);
 
   return (
     <div className="row">
@@ -157,7 +163,8 @@ export function Users() {
   const [loading, setloading] = useState(true);
   const [error, seterror] = useState();
 
-  useEffect(async () => {
+  useEffect(() => {
+    async function fetchData() {
     try {
       const data = await (await axios.post("/api/users/getallusers")).data;
       setusers(data);
@@ -167,7 +174,9 @@ export function Users() {
       setloading(false);
       seterror(error);
     }
-  }, []);
+  }
+  fetchData();
+}, []);
 
   return (
     <div className="row">
