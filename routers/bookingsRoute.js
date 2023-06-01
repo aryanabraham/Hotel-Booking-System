@@ -8,13 +8,22 @@ const { v4: uuidv4 } = require('uuid');
 
 router.post("/bookroom", async(req,res)=>{
 
-    const [room, userid, fromdate,todate,totalamount, totaldays, token] = req.body;
+    // console.log(req.body);
+    // const [room, userid, fromdate,todate,totalamount, totaldays, token] = req.body;
 
+    const room = req.body.room;
+    const userid = req.body.user;
+    const fromdate = req.body.fromdate;
+    const todate = req.body.todate;
+    const totalamount = req.body.totalamount;
+    const totaldays = req.body.totaldays;
+    const token = req.body.token;
     try{
         const customer = await stripe.customers.create({
             email : token.email,
             source : token.id
-        })
+        });
+        // console.log(customer.id);
 
         const payment = await stripe.charges.create({
             amount : totalamount * 100,
@@ -24,6 +33,7 @@ router.post("/bookroom", async(req,res)=>{
         },{
             idempotencyKey : uuidv4()
         })
+        console.log(payment);
 
         if(payment){
                 const newbooking = new Booking({
@@ -34,7 +44,7 @@ router.post("/bookroom", async(req,res)=>{
                     todate : moment(todate).format('DD-MM-YYYY'),
                     totalamount,
                     totaldays,
-                    transactionId : '1234'
+                    transactionId : token.id
                 });
         
                 const booking = await newbooking.save();

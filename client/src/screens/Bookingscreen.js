@@ -22,16 +22,16 @@ function Bookingscreen({ match }) {
   // console.log(day);
   // const totaldays = moment.duration(day, 'totaldays').asDays() + 1;
   let { roomid, fromdate, todate } = useParams();
-  console.log(fromdate);
+  // console.log(fromdate);
 console.log(todate);
   fromdate = moment(fromdate, 'DD-MM-YYYY');
   todate = moment(todate, 'DD-MM-YYYY');
 const totaldays = moment.duration(todate.diff(fromdate)).asDays()+1;
 fromdate = fromdate.format('DD-MM-YYYY');
 todate = todate.format('DD-MM-YYYY');
-console.log(fromdate);
-console.log(todate);
-console.log(totaldays);
+// console.log(fromdate);
+// console.log(todate);
+// console.log(totaldays);
   const [totalamount, settotalamount] = useState();
 
   useEffect(() => {
@@ -45,7 +45,7 @@ console.log(totaldays);
       );
       const data = response.data;
       settotalamount(data.rentperday * totaldays);
-      console.log(data);
+      // console.log(data);
       setroom(data);
       setloading(false);
     } catch (error) {
@@ -66,6 +66,9 @@ console.log(totaldays);
       totaldays,
       token,
     };
+
+    console.log(bookingDetails);
+    console.log(token);
 
     try {
       setloading(true);
@@ -92,7 +95,6 @@ console.log(totaldays);
         <div>
           <div className="row justify-content-center mt-5 bs">
             <div className="col-md-6">
-            {console.log(room)}
               <h1>{room.name}</h1>
               <img src={room.imageurls[0]} className="bigimg" />
             </div>
