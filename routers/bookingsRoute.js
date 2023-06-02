@@ -3,13 +3,14 @@ const router = express.Router();
 const Booking = require("../models/booking");
 const Room = require("../models/room");
 const moment = require('moment');
-const stripe = require('stripe')('sk_test_51M5ZaASDJfvzyPiCpo8bHP3YCSuRQzwzY0G8s2RGA24F6ZCEQpvAHGaIp5Dz2MX1heWed6hn9euQW0STlSyc9DRI00WR8SbbVa');
+require('dotenv').config()
+const stripe = require('stripe')(process.env.SECRET_KEY);
 const { v4: uuidv4 } = require('uuid');
 
 router.post("/bookroom", async(req,res)=>{
 
     // console.log(req.body);
-    // const [room, userid, fromdate,todate,totalamount, totaldays, token] = req.body;
+    // const {room, userid, fromdate,todate,totalamount, totaldays, token} = req.body;
 
     const room = req.body.room;
     const userid = req.body.user;
@@ -18,18 +19,25 @@ router.post("/bookroom", async(req,res)=>{
     const totalamount = req.body.totalamount;
     const totaldays = req.body.totaldays;
     const token = req.body.token;
+    // console.log(room);
+    // console.log(userid);
+    // console.log(fromdate);
+    // console.log(todate);
+    // console.log(totalamount);
+    // console.log(totaldays);
+    // console.log(token);
     try{
         const customer = await stripe.customers.create({
             email : token.email,
             source : token.id
         });
-        // console.log(customer.id);
+        // console.log(customer.source);
 
-        const payment = await stripe.charges.create({
+        const payment = await stripe.paymentIntents.create({
             amount : totalamount * 100,
             customer : customer.id,
             currency : 'inr',
-            receipt_email : token.email
+            receipt_email : customer.email
         },{
             idempotencyKey : uuidv4()
         })
@@ -66,6 +74,7 @@ router.post("/bookroom", async(req,res)=>{
 
         res.send("Payment Success, Your Room is booked");
     }catch(error){
+        console.log(error);
         return res.status(400).json({error});
     }    
 });
@@ -83,7 +92,7 @@ router.post("/getbookingsbyuserid", async(req,res) => {
 });
 
 router.post("/cancelbooking", async (req,res) =>{
-    const [bookingid, roomid] = req.body;
+    const {bookingid, roomid} = req.body;
 
     try{
         const bookingitem = await Booking.findOne({_id : bookingid});
@@ -93,7 +102,7 @@ router.post("/cancelbooking", async (req,res) =>{
         const room = await Room.findOne({_id : roomid});
         const bookings = room.currentbookings;
 
-        const temp = bookings.filter(booking => booking.bookingid.toString() != bookingid);
+        const temp = bookings.filter(booking => booking.bookingid.toString() !== bookingid);
         room.currentbookings = temp;
 
         await room.save();

@@ -11,7 +11,7 @@ function Navbar() {
   return (
     <div>
       <nav className="navbar navbar-expand-lg">
-        <a className="navbar-brand" href='/'>
+        <a className="navbar-brand" href='/home'>
           HakaRooms
         </a>
         {/* <button
@@ -64,6 +64,7 @@ function Navbar() {
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
+                    style={{marginRight : '40px'}}
                   >
                     <i className="fa fa-user"></i>
                     {user.name}

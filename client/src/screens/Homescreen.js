@@ -48,12 +48,11 @@ function Homescreen() {
       console.log(error);
       setloading(false);
     }
-  }
+  };
 
   useEffect(() => {
     fetchFun();
-  },[]);
-  
+  }, []);
 
   function filterByDate(dates) {
     // setfromdate(moment(dates[0].format("DD-MM-YYYY")));
@@ -75,15 +74,27 @@ function Homescreen() {
       if (room.currentbookings.length > 0) {
         for (const booking of room.currentbookings) {
           if (
-            !moment(
-              moment(dates[0])
-                .format("DD-MM-YYYY")
-                .isBetween(booking.fromdate, booking.todate)
+            // !moment(
+            //   moment(dates[0])
+            //     .format("DD-MM-YYYY")
+            //     .isBetween(booking.fromdate, booking.todate)
+            // ) &&
+            // !moment(
+            //   moment(dates[1])
+            //     .format("DD-MM-YYYY")
+            //     .isBetween(booking.fromdate, booking.todate)
+            // )
+            !moment(moment(dates[0]).format("DD-MM-YYYY")).isSameOrAfter(
+              booking.fromdate
             ) &&
-            !moment(
-              moment(dates[1])
-                .format("DD-MM-YYYY")
-                .isBetween(booking.fromdate, booking.todate)
+            !moment(moment(dates[0]).format("DD-MM-YYYY")).isSameOrBefore(
+              booking.todate
+            ) &&
+            !moment(moment(dates[1]).format("DD-MM-YYYY")).isSameOrAfter(
+              booking.fromdate
+            ) &&
+            !moment(moment(dates[1]).format("DD-MM-YYYY")).isSameOrBefore(
+              booking.todate
             )
           ) {
             if (
@@ -161,13 +172,13 @@ function Homescreen() {
           <Loader />
         ) : (
           rooms.map((room) => {
-            return(
-            <div className="col-md-9 mt-2">
-            {/* {console.log(fromdate)}
+            return (
+              <div className="col-md-9 mt-2">
+                {/* {console.log(fromdate)}
             {console.log(todate)} */}
-              <Room room={room} fromdate={fromdate} todate={todate} />
-            </div>
-            )
+                <Room room={room} fromdate={fromdate} todate={todate} />
+              </div>
+            );
           })
         )}
       </div>

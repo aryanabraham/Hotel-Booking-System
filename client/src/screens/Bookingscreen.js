@@ -6,7 +6,7 @@ import moment from "moment";
 import StripeCheckout from "react-stripe-checkout";
 import Swal from "sweetalert2";
 import { useParams } from 'react-router-dom';
-
+import PublisherKey from './PublisherKey';
 
 function Bookingscreen({ match }) {
   const [loading, setloading] = useState(true);
@@ -23,7 +23,7 @@ function Bookingscreen({ match }) {
   // const totaldays = moment.duration(day, 'totaldays').asDays() + 1;
   let { roomid, fromdate, todate } = useParams();
   // console.log(fromdate);
-console.log(todate);
+// console.log(todate);
   fromdate = moment(fromdate, 'DD-MM-YYYY');
   todate = moment(todate, 'DD-MM-YYYY');
 const totaldays = moment.duration(todate.diff(fromdate)).asDays()+1;
@@ -36,6 +36,11 @@ todate = todate.format('DD-MM-YYYY');
 
   useEffect(() => {
     async function fetchData() {
+
+      if(!localStorage.getItem('currentUser')){
+        window.location.href = '/login';
+      }
+
     try {
       setloading(true);
       const response = (
@@ -68,17 +73,19 @@ todate = todate.format('DD-MM-YYYY');
     };
 
     console.log(bookingDetails);
-    console.log(token);
+    // console.log(token);
 
     try {
       setloading(true);
       const result = await axios.post("/api/bookings/bookroom", bookingDetails);
+      console.log(result);
       setloading(false);
       Swal.fire(
         "Congratulations!",
         "Your room is successfully booked",
         "success"
-      );
+      ).then((result)=>{window.location.href = "/profile";});
+      
     } catch (error) {
       setloading(false);
       Swal.fire("Oops!", "Something went wrong", "error").then((result) => {
@@ -126,7 +133,7 @@ todate = todate.format('DD-MM-YYYY');
                   amount={totalamount * 100}
                   token={onToken}
                   currency="INR"
-                  stripeKey="pk_test_51M5ZaASDJfvzyPiCaR4yahFAtA29NSO15MMwJfeLXWSZPjE5EON8z7AagtmDI9DjlVTOynCss55LrJkwmwaZeBeu003b5Vj2lE"
+                  stripeKey={PublisherKey}
                 >
                   <button className="btn btn-primary">Pay Now</button>
                 </StripeCheckout>

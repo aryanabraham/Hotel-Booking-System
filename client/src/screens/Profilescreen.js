@@ -3,6 +3,8 @@ import { Tabs } from "antd";
 import axios from "axios";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import Swal from "sweetalert2";
+import { Divider, Space, Tag } from 'antd';
 
 const { TabPane } = Tabs;
 function Profilescreen() {
@@ -59,6 +61,22 @@ export function MyBookings() {
   fetchData();
 }, []);
 
+async function cancelBooking(bookingid, roomid){
+  try{
+    setloading(true);
+    const result =await( await axios.post("/api/bookings/cancelbooking", {bookingid, roomid})).data;
+    console.log(result);
+    setloading(false);
+    Swal.fire('Congrats!', 'Your booking has been cancelled', 'success').then(result=>{
+      window.location.reload();
+    });
+  }catch(error){
+    console.log(error);
+    setloading(false);
+    Swal.fire('Oops', 'Something went wrong', 'error');
+  }
+}
+
   return (
     <div>
       <div className="row">
@@ -83,11 +101,14 @@ export function MyBookings() {
                   </p>
                   <p>
                     <b>Status</b>:{" "}
-                    {booking.status == "booked" ? "Confirmed" : "Cancelled"}
+                    {/* {booking.status == "booked" ? "Confirmed" : "cancelled"} */}
+                    {booking.status == 'cancelled' ? (<Tag color="red">CANCELLED</Tag>) : (<Tag color="green">CONFIRMED</Tag>)}
                   </p>
-                  <div className="text-right">
-                    <button className="btn btn-primary">CANCEL BOOKING</button>
+                  {booking.status !== 'cancelled' && ( 
+                    <div className="text-right">
+                    <button className="btn btn-primary" onClick={() => cancelBooking(booking._id, booking.roomid)}>CANCEL BOOKING</button>
                   </div>
+                  )}
                 </div>
               );
             })}
