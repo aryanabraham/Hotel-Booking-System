@@ -41,7 +41,7 @@ router.post("/bookroom", async(req,res)=>{
         },{
             idempotencyKey : uuidv4()
         })
-        console.log(payment);
+        // console.log(payment);
 
         if(payment){
                 const newbooking = new Booking({
@@ -74,7 +74,7 @@ router.post("/bookroom", async(req,res)=>{
 
         res.send("Payment Success, Your Room is booked");
     }catch(error){
-        console.log(error);
+        // console.log(error);
         return res.status(400).json({error});
     }    
 });
