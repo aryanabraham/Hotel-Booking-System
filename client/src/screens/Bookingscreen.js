@@ -89,7 +89,7 @@ todate = todate.format('DD-MM-YYYY');
     } catch (error) {
       setloading(false);
       Swal.fire("Oops!", "Something went wrong", "error").then((result) => {
-        window.location.href = "/bookings";
+        window.location.href = "/home";
       });
     }
   }
