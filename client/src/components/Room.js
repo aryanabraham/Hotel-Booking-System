@@ -24,9 +24,11 @@ function Room({ room, fromdate, todate }) {
 
         <div style={{ float: "right" }}>
         {/* {console.log(fromdate._i)} */}
+        {fromdate && todate && (
             <Link to={`/book/${room._id}/${fromdate}/${todate}`}>
               <button className="btn btn-primary m-2" onClick={handleShow}>Book Now</button>
             </Link>
+            )}
           {/* {fromdate && todate && (
           )} */}
 
