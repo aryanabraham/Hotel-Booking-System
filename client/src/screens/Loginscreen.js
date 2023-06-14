@@ -9,6 +9,10 @@ function Loginscreen() {
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState();
 
+  if(localStorage.getItem("currentUser")){
+    window.location.href="/home";
+  }
+
   async function Login() {
     const user = {
       email,

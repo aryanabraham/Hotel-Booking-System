@@ -21,8 +21,8 @@ router.post("/bookroom", async(req,res)=>{
     const token = req.body.token;
     // console.log(room);
     // console.log(userid);
-    // console.log(fromdate);
-    // console.log(todate);
+    console.log(fromdate);
+    console.log(todate);
     // console.log(totalamount);
     // console.log(totaldays);
     // console.log(token);

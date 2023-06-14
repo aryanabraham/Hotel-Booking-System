@@ -4,6 +4,12 @@ import Loader from "../components/Loader";
 import Error from "../components/Error";
 import Success from "../components/Success";
 function Registerscreen() {
+
+
+  if(localStorage.getItem("currentUser")){
+    window.location.href="/home";
+  }
+
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
@@ -14,6 +20,8 @@ function Registerscreen() {
   const [success, setsuccess] = useState();
 
   async function register() {
+
+    if(name && email && password && cpassword){
     if (password === cpassword) {
       const user = {
         name,
@@ -39,6 +47,10 @@ function Registerscreen() {
     } else {
       alert("Passwords do not match");
     }
+  }
+  else{
+    alert("Please fill in all fields");
+  }
   }
 
   return (

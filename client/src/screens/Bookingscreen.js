@@ -65,8 +65,8 @@ todate = todate.format('DD-MM-YYYY');
     const bookingDetails = {
       room,
       user: JSON.parse(localStorage.getItem("currentUser"))._id,
-      fromdate,
-      todate,
+      fromdate : moment(fromdate, "DD-MM-YYYY"),
+      todate : moment(todate, "DD-MM-YYYY"),
       totalamount,
       totaldays,
       token,
