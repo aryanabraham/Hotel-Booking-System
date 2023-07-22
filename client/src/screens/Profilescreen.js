@@ -5,16 +5,29 @@ import Loader from "../components/Loader";
 import Error from "../components/Error";
 import Swal from "sweetalert2";
 import { Divider, Space, Tag } from 'antd';
+import Adminscreen from "./Adminscreen";
+
 
 const { TabPane } = Tabs;
 function Profilescreen() {
-  const user = JSON.parse(localStorage.getItem("currentUser"));
 
-  useEffect(() => {
-    if (!user) {
-      window.location.href = "/login";
-    }
-  }, []);
+
+  if (!localStorage.getItem("currentUser")) {
+    window.location.href = "/login";
+  }
+
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+console.log(user);
+
+  // useEffect(() => {
+  //   if (!localStorage.getItem("currentUser")) {
+  //     window.location.href = "/login";
+  //   }
+  // }, []);
+
+  // function redct(){
+  //   window.location.href = "/admin";
+  // }
 
   return (
     <div className="ml-3 mt-3">
@@ -29,6 +42,11 @@ function Profilescreen() {
         <TabPane tab="Bookings" key="2">
           <MyBookings />
         </TabPane>
+        {user.isAdmin ? (
+          <TabPane tab="Admin" key="3">
+          <Adminscreen />
+        </TabPane>
+        ):("")}
       </Tabs>
     </div>
   );

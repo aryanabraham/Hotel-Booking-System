@@ -12,7 +12,7 @@ function Navbar() {
     <div>
       <nav className="navbar navbar-expand-lg">
         <a className="navbar-brand" href='/home'>
-          HakaRooms
+          Room Khojo
         </a>
         {/* <button
           className="navbar-toggler"

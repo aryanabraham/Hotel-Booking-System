@@ -6,6 +6,11 @@ import Loader from "../components/Loader";
 import Error from "../components/Error";
 import Swal from "sweetalert2";
 function Adminscreen() {
+
+  if(!localStorage.getItem("currentUser")){
+    window.location.href = "/login";
+  }
+
   useEffect(() => {
     if (!JSON.parse(localStorage.getItem("currentUser")).isAdmin) {
       window.location.href = "/home";
@@ -46,9 +51,9 @@ export function Bookings() {
   useEffect(() => {
     async function fetchData(){
     try {
-      const data = await (
-        await axios.post("/api/bookings/getallbookings")
-      ).data;
+      const response = await axios.get("/api/bookings/getallbookings");
+      const data = response.data;
+      console.log(data);
       setbookings(data);
       setloading(false);
     } catch (error) {
@@ -107,7 +112,7 @@ export function Rooms() {
   useEffect(() => {
     async function fetchData(){
     try {
-      const data = await (await axios.post("/api/rooms/getallrooms")).data;
+      const data = await (await axios.get("/api/rooms/getallrooms")).data;
       setrooms(data);
       setloading(false);
     } catch (error) {
@@ -166,7 +171,7 @@ export function Users() {
   useEffect(() => {
     async function fetchData() {
     try {
-      const data = await (await axios.post("/api/users/getallusers")).data;
+      const data = await (await axios.get("/api/users/getallusers")).data;
       setusers(data);
       setloading(false);
     } catch (error) {
@@ -347,7 +352,7 @@ export function AddRoom() {
         />
 
         <div className="text-right">
-          <button className="btn btn-primary mt-2">Add Room</button>
+          <button className="btn btn-primary mt-2" onClick={()=> addRoom()}>Add Room</button>
         </div>
       </div>
     </div>

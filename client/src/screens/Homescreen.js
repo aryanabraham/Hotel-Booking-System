@@ -196,10 +196,22 @@ function Homescreen() {
     setrooms(filteredRooms);
   }
   
+  // function filterRooms(selectedType, selectedLocation) {
+  //   const filteredRooms = duplicaterooms.filter((room) => {
+  //     const matchesType = selectedType === "all" || room.type.toLowerCase() === selectedType.toLowerCase();
+  //     const matchesLocation = selectedLocation === "all" || room.location.toLowerCase() === selectedLocation.toLowerCase();
+  //     return matchesType && matchesLocation;
+  //   });
+  //   return filteredRooms;
+  // }
   function filterRooms(selectedType, selectedLocation) {
     const filteredRooms = duplicaterooms.filter((room) => {
-      const matchesType = selectedType === "all" || room.type.toLowerCase() === selectedType.toLowerCase();
-      const matchesLocation = selectedLocation === "all" || room.location.toLowerCase() === selectedLocation.toLowerCase();
+      const matchesType =
+        selectedType === "all" ||
+        (room.type && room.type.toLowerCase() === selectedType.toLowerCase());
+      const matchesLocation =
+        selectedLocation === "all" ||
+        (room.location && room.location.toLowerCase() === selectedLocation.toLowerCase());
       return matchesType && matchesLocation;
     });
     return filteredRooms;
